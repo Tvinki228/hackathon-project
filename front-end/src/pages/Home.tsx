@@ -1,70 +1,55 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import FadeInSection from "../components/FadeInSection";
-import { api } from "../lib/axios";
-
-type Post = { id: number; title: string; body: string };
+// src/pages/Home.tsx
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-
-    api
-      .get<Post[]>("/posts", { signal: controller.signal })
-      .then((r) => setPosts(r.data.slice(0, 5)))
-      .catch((e) => {
-        if (e.name !== "CanceledError") setError(e.message);
-      })
-      .finally(() => setLoading(false));
-
-    return () => controller.abort();
-  }, []);
-
   return (
-    <div style={{ maxWidth: 700, margin: "40px auto", padding: "0 16px" }}>
-      <motion.h1
-        initial={{ opacity: 0, y: 12 }}
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
+        background: "#16a34a",
+        padding: "40px 16px",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        style={{
+          maxWidth: 720,
+          textAlign: "center",
+          color: "white",
+        }}
       >
-        Vite + React + Axios + Framer Motion
-      </motion.h1>
+        <img
+          src="/robot.png" /* положи иконку в public/robot.png или убери */
+          alt=""
+          style={{ width: 140, height: 140, objectFit: "contain", margin: "0 auto 24px" }}
+        />
+        <h1 style={{ fontSize: 44, margin: "0 0 12px", lineHeight: 1.1 }}>
+          Your hilarious AI Study Buddy is here!
+        </h1>
+        <p style={{ opacity: 0.9, maxWidth: 560, margin: "0 auto 24px" }}>
+          Because who said studying has to be a drag? Let’s turn those cram sessions into laugh sessions.
+        </p>
 
-      <FadeInSection>
-        <p>Below we fetch posts from an API and animate the list items.</p>
-      </FadeInSection>
-
-      {loading && <p>Loading…</p>}
-      {error && <p style={{ color: "crimson" }}>Error: {error}</p>}
-
-      <ul style={{ listStyle: "none", padding: 0, marginTop: 16 }}>
-        <AnimatePresence>
-          {posts.map((p) => (
-            <motion.li
-              key={p.id}
-              layout
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              style={{
-                padding: "12px 16px",
-                marginBottom: 10,
-                border: "1px solid #eee",
-                borderRadius: 10,
-              }}
-            >
-              <strong>{p.title}</strong>
-              <div style={{ opacity: 0.7 }}>{p.body}</div>
-            </motion.li>
-          ))}
-        </AnimatePresence>
-      </ul>
+        <Link
+          to="/study"
+          style={{
+            display: "inline-block",
+            padding: "12px 20px",
+            background: "black",
+            color: "white",
+            borderRadius: 999,
+            textDecoration: "none",
+            fontWeight: 700,
+          }}
+        >
+          Let the shenanigans begin!
+        </Link>
+      </motion.div>
     </div>
   );
 }
