@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Study.module.scss";
 
 export default function Study() {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleInput = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+
+    el.style.height = "auto";
+
+    const lineHeight =
+      parseInt(window.getComputedStyle(el).lineHeight, 10) || 20;
+    const maxAllowedHeight = lineHeight * 5;
+
+    if (el.scrollHeight <= maxAllowedHeight) {
+      el.style.overflowY = "hidden";
+      el.style.height = el.scrollHeight + "px";
+    } else {
+      el.style.overflowY = "auto";
+      el.style.height = maxAllowedHeight + "px";
+    }
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -9,13 +31,15 @@ export default function Study() {
           <svg viewBox="0 0 24 24">
             <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2ZM13,17h-2v-2h2v2Zm0-4h-2V7h2v6Z" />
           </svg>
-          <h1>AI Study Buddy</h1>
+          <h1>AILuminate</h1>
         </div>
 
         <nav className={styles.nav}>
-          <a href="#">Home</a>
-          <a href="#">Subjects</a>
-          <a href="#">Study Sets</a>
+          <Link to="/" className={styles.link}>
+            Home
+          </Link>
+          {/* <a href="#">Subjects</a>
+          <a href="#">Study Sets</a> */}
         </nav>
       </header>
 
@@ -59,6 +83,20 @@ export default function Study() {
               <div className={styles.iconBox}>🌍</div>
               <h4>Geography (aka "Where Am I?")</h4>
             </div>
+          </div>
+        </section>
+
+        <section className={styles.queryBar}>
+          <div className={styles.queryContainer}>
+            <textarea
+              ref={textareaRef}
+              type="text"
+              placeholder="Enter a query..."
+              className={styles.queryInput}
+              rows={1}
+              onInput={handleInput}
+            />
+            <button className={styles.queryButton}>Send</button>
           </div>
         </section>
       </main>

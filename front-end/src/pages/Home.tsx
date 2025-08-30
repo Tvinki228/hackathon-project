@@ -17,7 +17,7 @@ export default function Home() {
           </div>
 
           <h1 className={styles.title}>
-            Your hilarious AI Study Buddy is here!
+            Your hilarious AILuminate is here!
           </h1>
 
           <p className={styles.subtitle}>
