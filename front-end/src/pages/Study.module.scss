@@ -5,9 +5,9 @@
 }
 
 .page {
-  background: #111714;
-  color: white;
-  font-family: "Spline Sans", "Noto Sans", sans-serif;
+  background: #c7f4d2;
+  color: rgb(15, 15, 15);
+  font-family: "Montserrat", "Noto Sans", sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #29382f;
+    border-bottom: 1px solid #62bd87;
     padding: 1rem 2rem;
 
     .logo {
@@ -43,50 +43,16 @@
       gap: 2rem;
 
       a {
-        font-size: 0.9rem;
+        font-size: 1rem;
         font-weight: 500;
-        color: white;
+        color: rgb(15, 15, 15);
         text-decoration: none;
         transition: color 0.2s;
 
         &:hover {
-          color: var(--primary-400);
+          color: var(--primary-500);
+          font-weight: 500;
         }
-      }
-    }
-
-    .userSection {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      .helpBtn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #29382f;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background 0.2s;
-
-        &:hover {
-          background: var(--primary-700);
-        }
-
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-
-      .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-size: cover;
-        background-position: center;
       }
     }
   }
@@ -109,13 +75,13 @@
       p {
         margin-top: 1rem;
         font-size: 1.1rem;
-        color: #9ca3af;
+        color: #1c2620bb;
       }
     }
 
     .uploadBox {
-      background: #1c2620;
-      border: 2px dashed var(--primary-500);
+      background: #8de8a4;
+      border: 2px dashed #1c2620bb;
       border-radius: 1rem;
       padding: 2rem;
       text-align: center;
@@ -123,8 +89,8 @@
       cursor: pointer;
 
       &:hover {
-        background: #202c25;
-        border-color: var(--primary-400);
+        background: #a3e7b4bf;
+        border-color: #1c2620bb;
       }
 
       .uploadIcon {
@@ -146,14 +112,14 @@
 
       .uploadDesc {
         font-size: 0.9rem;
-        color: #9ca3af;
+        color: #1c2620bb;
         margin-bottom: 1rem;
       }
 
       .uploadBtn {
         padding: 0.75rem 1.5rem;
         border-radius: 9999px;
-        background: var(--primary-500);
+        background: #0f1411dc;
         color: white;
         font-weight: bold;
         border: none;
@@ -186,7 +152,7 @@
           display: flex;
           align-items: center;
           gap: 1rem;
-          background: #1c2620;
+          background: #8de8a4;
           border: 1px solid var(--primary-500);
           border-radius: 0.75rem;
           padding: 1rem;
@@ -194,7 +160,7 @@
           cursor: pointer;
 
           &:hover {
-            background: #202c25;
+            background: #a3e7b4bf;
             border-color: var(--primary-400);
           }
 
@@ -205,7 +171,7 @@
 
           .iconBox {
             font-size: 1.5rem;
-            background: #29382f;
+            background: var(--primary-400);
             padding: 0.75rem;
             border-radius: 0.5rem;
           }
