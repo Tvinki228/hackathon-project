@@ -1,9 +1,45 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Study.module.scss";
 
+import banana from "../assets/banana.png";
+
 export default function Study() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [answer, setAnswer] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files && e.target.files[0]) {
+    setFile(e.target.files[0]);
+  }
+};
+
+const handleFileUpload = async () => {
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/rag/ingest", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Error uploading file");
+    }
+
+    const data = await response.json();
+    console.log("Uploaded & ingested:", data);
+    alert("PDF uploaded successfully");
+  } catch (err) {
+    console.error(err);
+    alert("Upload failed");
+  }
+};
+
 
   const handleInput = () => {
     const el = textareaRef.current;
@@ -24,6 +60,33 @@ export default function Study() {
     }
   };
 
+  const handleQuerySubmit = async () => {
+    const query = textareaRef.current?.value;
+    if (!query) return;
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/rag/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: query,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error while fetching the answer");
+      }
+
+      const data = await response.json();
+      setAnswer(data.answer);
+    } catch (error) {
+      console.error("Error fetching the answer:", error);
+      setAnswer("Sorry, something went wrong.");
+    }
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -38,8 +101,6 @@ export default function Study() {
           <Link to="/" className={styles.link}>
             Home
           </Link>
-          {/* <a href="#">Subjects</a>
-          <a href="#">Study Sets</a> */}
         </nav>
       </header>
 
@@ -51,40 +112,25 @@ export default function Study() {
 
         <div className={styles.uploadBox}>
           <div className={styles.uploadIcon}>
-            <svg viewBox="0 0 24 24">
-              <path d="M14.5 21H6a2 2 0 0 1-2-2V5a2..."></path>
-            </svg>
+            <img src={banana} alt="banana" />
           </div>
           <p className={styles.uploadTitle}>
-            Slingshot your notes into the void!
+            Gimme bananaa!
           </p>
           <p className={styles.uploadDesc}>
             Or click to launch your files (PDF, notes, carrier pigeon)
           </p>
-          <button className={styles.uploadBtn}>Upload Files</button>
+          <div className={styles.uploadBox}>
+        <input 
+            type="file" 
+            accept="application/pdf" 
+            onChange={handleFileChange} 
+        />
+  {/* <button className={styles.uploadBtn} onClick={handleFileUpload}>
+    Upload Files
+  </button> */}
+</div>
         </div>
-
-        <section className={styles.subjects}>
-          <h3>Or Choose a Popular Subject</h3>
-          <div className={styles.grid}>
-            <div className={styles.subjectCard}>
-              <div className={styles.iconBox}>📜</div>
-              <h4>History (aka "The Good Old Days")</h4>
-            </div>
-            <div className={styles.subjectCard}>
-              <div className={styles.iconBox}>⚗️</div>
-              <h4>Chemistry (aka "Potion Making 101")</h4>
-            </div>
-            <div className={styles.subjectCard}>
-              <div className={styles.iconBox}>🔢</div>
-              <h4>Math (aka "Numbers Go Brrr")</h4>
-            </div>
-            <div className={styles.subjectCard}>
-              <div className={styles.iconBox}>🌍</div>
-              <h4>Geography (aka "Where Am I?")</h4>
-            </div>
-          </div>
-        </section>
 
         <section className={styles.queryBar}>
           <div className={styles.queryContainer}>
@@ -96,8 +142,14 @@ export default function Study() {
               rows={1}
               onInput={handleInput}
             />
-            <button className={styles.queryButton}>Send</button>
+            <button className={styles.queryButton} onClick={handleQuerySubmit}>
+              Send
+            </button>
           </div>
+        </section>
+
+        <section className={styles.answerBox}>
+          {answer && <p>{answer}</p>}
         </section>
       </main>
     </div>

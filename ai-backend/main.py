@@ -23,8 +23,8 @@ async def rag_ingest(file: UploadFile = File(...)):
     """Upload and ingest a PDF into the vector database."""
     import os
 
-    os.makedirs("uploads", exist_ok=True)
-    path = f"uploads/{file.filename}"
+    os.makedirs("pdf_test", exist_ok=True)
+    path = f"pdf_test/{file.filename}"
     with open(path, "wb") as f:
         f.write(await file.read())
     return ingest_pdf(path)

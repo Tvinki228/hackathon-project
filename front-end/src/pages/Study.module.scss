@@ -100,7 +100,7 @@
         justify-content: center;
         margin-bottom: 1rem;
 
-        svg {
+        img {
           width: 64px;
           height: 64px;
           color: #6b7280;
@@ -118,7 +118,7 @@
         margin-bottom: 1rem;
       }
 
-      .uploadBtn {
+      input {
         padding: 0.75rem 1.5rem;
         border-radius: 9999px;
         background: #0f1411dc;
@@ -140,52 +140,52 @@
       }
     }
 
-    .subjects {
-      margin-top: 3rem;
-      text-align: center;
+    // .subjects {
+    //   margin-top: 3rem;
+    //   text-align: center;
 
-      h3 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1.5rem;
-      }
+    //   h3 {
+    //     font-size: 1.5rem;
+    //     font-weight: bold;
+    //     margin-bottom: 1.5rem;
+    //   }
 
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-        margin-bottom: 60px;
+    //   .grid {
+    //     display: grid;
+    //     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    //     gap: 1rem;
+    //     margin-bottom: 60px;
 
-        .subjectCard {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          background: #8de8a4;
-          border: 1px solid var(--primary-500);
-          border-radius: 0.75rem;
-          padding: 1rem;
-          transition: all 0.2s;
-          cursor: pointer;
+    //     .subjectCard {
+    //       display: flex;
+    //       align-items: center;
+    //       gap: 1rem;
+    //       background: #8de8a4;
+    //       border: 1px solid var(--primary-500);
+    //       border-radius: 0.75rem;
+    //       padding: 1rem;
+    //       transition: all 0.2s;
+    //       cursor: pointer;
 
-          &:hover {
-            background: #a3e7b4bf;
-            border-color: var(--primary-400);
-          }
+    //       &:hover {
+    //         background: #a3e7b4bf;
+    //         border-color: var(--primary-400);
+    //       }
 
-          h4 {
-            font-size: 1rem;
-            font-weight: bold;
-          }
+    //       h4 {
+    //         font-size: 1rem;
+    //         font-weight: bold;
+    //       }
 
-          .iconBox {
-            font-size: 1.5rem;
-            background: var(--primary-400);
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-          }
-        }
-      }
-    }
+    //       .iconBox {
+    //         font-size: 1.5rem;
+    //         background: var(--primary-400);
+    //         padding: 0.75rem;
+    //         border-radius: 0.5rem;
+    //       }
+    //     }
+    //   }
+    // }
 
     .queryBar {
       position: fixed;
@@ -242,6 +242,9 @@
           }
         }
       }
+    }
+    .answerBox {
+        font-size: 20px;
     }
   }
 }
