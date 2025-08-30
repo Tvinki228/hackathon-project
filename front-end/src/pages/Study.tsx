@@ -16,10 +16,10 @@ export default function Study() {
     const maxAllowedHeight = lineHeight * 5;
 
     if (el.scrollHeight <= maxAllowedHeight) {
-      el.style.overflowY = "hidden"; // текст вміщається — скрол ховаємо
+      el.style.overflowY = "hidden";
       el.style.height = el.scrollHeight + "px";
     } else {
-      el.style.overflowY = "auto"; // більше 5 рядків — вмикаємо скрол
+      el.style.overflowY = "auto";
       el.style.height = maxAllowedHeight + "px";
     }
   };
